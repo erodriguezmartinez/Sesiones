@@ -45,22 +45,6 @@
 
 		}
 
-		//Función para comprobar usuario
-		function comprobar($correo,$contrasena){
-
-			if($this->conexion === false){
-				die("ERROR: Could not connect. " . $this->conexion->connect_error);	//Visualización de posible error
-			}
-
-			$consulta = "SELECT Nombre FROM Usuarios WHERE correo='".$correo."' AND contrasena='".$contrasena."';";
-
-			if($this->conexion->query($consulta)->num_rows==1){ 
-				return "bien";
-			} else{
-				return "error";
-			}
-		}
-
 		//Función para listar minijuegos
 		function listar(){
 
@@ -71,18 +55,6 @@
 			$consulta = "SELECT * FROM minijuegos";	//Consulta a ejecutar
 			return $this->resultado = mysqli_query($this->conexion, $consulta);
 		}
-		//Función para listar preferencias elegidas
-		function listarpreferencias(){
-
-			if($this->conexion === false){
-				die("ERROR: Could not connect. " . $this->conexion->connect_error);	//Visualización de posible error
-			}
-			$consulta = "SELECT nombre,url FROM minijuegos INNER JOIN preferencias ON minijuegos.idjuego=preferencias.idjuego
-			WHERE idusuario=(SELECT idusuario FROM usuarios WHERE correo='".$_SESSION['correo']."');";	//Consulta a ejecutar
-
-			return $this->resultado = mysqli_query($this->conexion, $consulta);
-		}
-
 
 	}
 ?>
